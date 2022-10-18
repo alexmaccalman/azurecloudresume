@@ -17,21 +17,21 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        environment: 'AzureUSGovernment'
-        enable-AzPSSession: false
+        #environment: 'AzureUSGovernment'
+        #enable-AzPSSession: false
 
-    - name: Connect to Azure Key Vault
-      uses: Azure/get-keyvault-secrets@v1
-      with: 
-        keyvault: "atecexkeyvault"
-        secrets: 'cosmosconnection'
-      id: myGetSecretAction
+    # - name: Connect to Azure Key Vault
+    #   uses: Azure/get-keyvault-secrets@v1
+    #   with: 
+    #     keyvault: "resumekeyvaultadm"
+    #     secrets: 'cosmosconnection'
+    #   id: myGetSecretAction
 
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
-      env: 
-        CONNECTION_SECRET: ${{ steps.myGetSecretAction.outputs.cosmosconnection }}
+      # env: 
+      #   CONNECTION_SECRET: ${{ steps.myGetSecretAction.outputs.cosmosconnection }}
 
       with:
         inlineScript: |
@@ -40,7 +40,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-          az cdn endpoint purge --content-paths  "/*" --profile-name "cdn-profile-alexmaccalman" --name "cdn-endpoint-alexmaccalman" --resource-group "front_end" --no-wait
+          az cdn endpoint purge --content-paths  "/*" --profile-name "alexmaccalmanresume" --name "alexmaccalmanresume" --resource-group "front_end" --no-wait
     
   # Azure logout
     - name: logout
