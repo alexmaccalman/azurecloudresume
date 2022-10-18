@@ -1,0 +1,49 @@
+name: deploy_frontend
+# Deploys when push is made from frontend folder
+
+on:
+  push:
+    paths:
+      - 'front_end/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Login to Azure Cloud with CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        environment: 'AzureUSGovernment'
+        enable-AzPSSession: false
+
+    - name: Connect to Azure Key Vault
+      uses: Azure/get-keyvault-secrets@v1
+      with: 
+        keyvault: "atecexkeyvault"
+        secrets: 'cosmosconnection'
+      id: myGetSecretAction
+
+
+    - name: Upload to blob storage
+      uses: azure/CLI@v1
+      env: 
+        CONNECTION_SECRET: ${{ steps.myGetSecretAction.outputs.cosmosconnection }}
+
+      with:
+        inlineScript: |
+          az storage blob upload-batch --account-name frontendstorage --overwrite --auth-mode key --connection-string $CONNECTION_SECRET -d '$web' -s front_end/
+    - name: Purge CDN endpoint
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az cdn endpoint purge --content-paths  "/*" --profile-name "cdn-profile-alexmaccalman" --name "cdn-endpoint-alexmaccalman" --resource-group "front_end" --no-wait
+    
+  # Azure logout
+    - name: logout
+      run: |
+        az logout
+      if: always()

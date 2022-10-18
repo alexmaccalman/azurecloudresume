@@ -1,0 +1,41 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "name": "req",
+      "type": "httpTrigger",
+      "direction": "in",
+      "methods": [
+        "get",
+        "post"
+      ],
+      "route":"counter/{partitionKeyValue}/{id}"
+    },
+    {
+      "name": "$return",
+      "type": "http",
+      "direction": "out"
+    },
+    {
+      "type": "cosmosDB",
+      "name": "readdb",
+      "databaseName": "AzureResume",
+      "collectionName": "Counter",
+      "connectionStringSetting": "AzureResumeConnectionString",
+      "direction": "in",
+      "Id": "{id}",
+      "PartitionKey": "{partitionKeyValue}"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "updatedb",
+      "databaseName": "AzureResume",
+      "collectionName": "Counter",
+      "createIfNotExists": "true",
+      "connectionStringSetting": "AzureResumeConnectionString"
+    }
+  ],
+  "disabled": false,
+  "scriptFile": "__init__.py"
+}
