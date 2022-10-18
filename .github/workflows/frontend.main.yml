@@ -35,7 +35,7 @@ jobs:
 
       with:
         inlineScript: |
-          az storage blob upload-batch --account-name frontendstorage --overwrite --auth-mode key --connection-string $CONNECTION_SECRET -d '$web' -s front_end/
+          az storage blob upload-batch --account-name frontendstorageadm --overwrite --auth-mode key --connection-string $CONNECTION_SECRET -d '$web' -s front_end/
     - name: Purge CDN endpoint
       uses: azure/CLI@v1
       with:
