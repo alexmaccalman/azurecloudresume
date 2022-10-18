@@ -20,18 +20,18 @@ jobs:
         #environment: 'AzureUSGovernment'
         #enable-AzPSSession: false
 
-    # - name: Connect to Azure Key Vault
-    #   uses: Azure/get-keyvault-secrets@v1
-    #   with: 
-    #     keyvault: "resumekeyvaultadm"
-    #     secrets: 'cosmosconnection'
-    #   id: myGetSecretAction
+    - name: Connect to Azure Key Vault
+      uses: Azure/get-keyvault-secrets@v1
+      with: 
+        keyvault: "resumekeyvaultadm"
+        secrets: 'resumestorage'
+      id: myGetSecretAction
 
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
-      # env: 
-      #   CONNECTION_SECRET: ${{ steps.myGetSecretAction.outputs.cosmosconnection }}
+      env: 
+        CONNECTION_SECRET: ${{ steps.myGetSecretAction.outputs.resumestorage }}
 
       with:
         inlineScript: |
