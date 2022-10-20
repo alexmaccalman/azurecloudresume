@@ -6,7 +6,7 @@ on:
       - 'back_end/**'
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'counterbackend' # set this to your application's name
+  AZURE_FUNCTIONAPP_NAME: 'counterbackend' # set this to your function application's name
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'back_end/'   # set this to the path to your web app project, defaults to the repository root
   PYTHON_VERSION: '3.8'                 # set this to the Python version to use (supports 3.6, 3.7, 3.8)
 
@@ -17,12 +17,12 @@ jobs:
     - name: 'Checkout GitHub action'
       uses: actions/checkout@v2
 
-    - name: 'Login to Azure US Gov Cloud with CLI'
+    - name: 'Login to Azure Cloud with CLI'
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        environment: 'AzureUSGovernment'
-        enable-AzPSSession: false
+        # environment: 'AzureUSGovernment'
+        # enable-AzPSSession: false
 
     - name: 'Resolve Project Dependencies Using Pip'
       shell: bash
