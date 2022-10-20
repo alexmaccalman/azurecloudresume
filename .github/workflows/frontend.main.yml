@@ -24,18 +24,17 @@ jobs:
       uses: Azure/get-keyvault-secrets@v1
       with: 
         keyvault: "resumekeyvaultadm"
-        secrets: 'resumestorage'
+        secrets: 'resumestoragesecret'
       id: myGetSecretAction
 
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
       env: 
-        CONNECTION_SECRET: ${{ steps.myGetSecretAction.outputs.resumestorage }}
+        CONNECTION_SECRET: ${{ steps.myGetSecretAction.outputs.resumestoragesecret }}
 
       with:
         inlineScript: |
-          echo $CONNECTION_SECRET
           az storage blob upload-batch --account-name frontendstorageadm --overwrite --auth-mode key --connection-string $CONNECTION_SECRET -d '$web' -s front_end/
     - name: Purge CDN endpoint
       uses: azure/CLI@v1
