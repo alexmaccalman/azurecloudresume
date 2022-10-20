@@ -6,7 +6,7 @@ import logging
 import azure.functions as func
 
 def main(req: func.HttpRequest, readdb: func.DocumentList, updatedb: func.Out[func.Document]) -> func.HttpResponse:
-    test = "dummy"
+    test = "dummy2"
     currentrow = readdb[0].data
     #print(type(readdb[0].data))
     currentrow['count'] = currentrow['count'] + 1
