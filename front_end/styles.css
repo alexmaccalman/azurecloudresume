@@ -36,15 +36,16 @@ hr {
 }
 
 a{
-  color: white;
+  color: blue;
   font-family: 'Montserrat', sans-serif;
-  margin: 10px 20px;
   text-decoration: none;
 }
 
 a:hover {
-  color: #EAF6F6;
+  color: #09a3f5;
 }
+
+
 
 .role {
   color: white;
@@ -240,6 +241,7 @@ section:last-child {
   font-size: 20px;
   padding: 5px 10px 5px 10px;
   text-decoration: none;
+  margin: 10px 20px;
 }
 
 .btn:hover {
@@ -256,6 +258,7 @@ section:last-child {
 .fa-linkedin {
   background: #3B5998;
   color: white;
+  margin: 10px 20px;
 }
 
 /* GiHub */
@@ -267,10 +270,12 @@ section:last-child {
   font-size: 100px;
   width: 30px;
   height: auto;
+  margin: 10px 20px;
 }
 
 /* YouTube */
 .fa-youtube {
   background: red;
   color: white;
+  margin: 10px 20px;
 }
