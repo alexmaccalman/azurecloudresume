@@ -76,6 +76,9 @@ a:hover {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+.counter a {
+  color: white;
+}
 
 .container {
   max-width: 960px;
