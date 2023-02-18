@@ -9,6 +9,7 @@ DISALLOWED_IP = '73.212.171.225'
 
 def main(req: func.HttpRequest, readdb: func.DocumentList, updatedb: func.Out[func.Document]) -> func.HttpResponse:
     client_ip = req.headers.get("X-Forwarded-For") or req.headers.get("X-Real-IP") or socket.gethostbyname(socket.gethostname())
+    
     currentrow = readdb[0].data
     
     if client_ip != DISALLOWED_IP:
