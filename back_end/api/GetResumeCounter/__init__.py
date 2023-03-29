@@ -5,16 +5,16 @@ import logging
 import socket
 
 import azure.functions as func
-DISALLOWED_IP = '73.212.171.225'
+
 
 def main(req: func.HttpRequest, readdb: func.DocumentList, updatedb: func.Out[func.Document]) -> func.HttpResponse:
     client_ip = req.headers.get("X-Forwarded-For") or req.headers.get("X-Real-IP") or socket.gethostbyname(socket.gethostname())
     
     currentrow = readdb[0].data
     
-    if client_ip != DISALLOWED_IP:
-        currentrow['count'] += 1
-        updatedb.set(func.Document.from_dict(currentrow))
+    
+    currentrow['count'] += 1
+    updatedb.set(func.Document.from_dict(currentrow))
     
     # write to the cosmos DB the new count
     response = func.HttpResponse(
